@@ -83,10 +83,6 @@ def main():
     pri_vdom_list = list(map(lambda x: x['name'], pri_vdoms))
     sec_vdom_list = list(map(lambda x: x['name'], sec_vdoms))
 
-    # Logout of global
-    login_pri.Logout()
-    login_sec.Logout()
-
     # Push vdom configration
     for vdom in pri_vdoms:
         if vdom['name'] not in sec_vdom_list:
@@ -101,6 +97,10 @@ def main():
     else:
         print('Number of errors: ', len(vdom_error_codes))
         sys.exit(1)
+
+    # Logout of global
+    login_pri.Logout()
+    login_sec.Logout()
 
     # Move root vdom to front so we configure this vdom first
     move_to_front('root', pri_vdom_list)
