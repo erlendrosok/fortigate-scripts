@@ -112,8 +112,8 @@ def main():
         print('-------------------------')
         print('CONFIGURING', vdom.upper())
         print('-------------------------', '\n')
-        # List to contain result, empty is successfull
 
+        # List to contain result, empty is successfull
         result = []
 
         def push_config(obj, path):
@@ -255,10 +255,18 @@ def main():
             key = policy['policyid']
             path = 'cmdb/firewall/policy'
 
-            # Clean up policies to avoid errors
-            policy['logtraffic'] = 'all'
-            policy['logtraffic-start'] = 'enable'
-            policy.pop('comments', None)
+            """ Uncomment to enable logging on all policies """
+            # policy['logtraffic'] = 'all'
+            # policy['logtraffic-start'] = 'enable'
+
+            """ Uncomment to remove comments.
+                You might want to do this is you have
+                issues with special characters """
+            # policy.pop('comments', None)
+
+            """ Since this script doesn't configure
+                any webfilter, ips, antivirus profiles
+                we change them to the default profiles """
             if policy['application-list']:
                 policy['application-list'] = 'default'
             if policy['profile-protocol-options']:
